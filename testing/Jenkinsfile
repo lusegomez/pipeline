@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('docker build') {
+            steps {
+                sh 'docker build -f testing/Dockerfile -t example/page:1.0.0-${BUILD_ID} testing'
+            }
+        }
+
+        stage('docker push') {
+            steps {
+                sh 'docker push example/page:1.0.0-${BUILD_ID}'
+            }
+        }
+    }
+}
